@@ -24,7 +24,7 @@ function isAlreadyAdded(data, url) {
 }
 
 app.get('/data', async (req, res) => {
-  const dataType = req.query.dataType;
+  const type = req.query.dataType;
   const addVideo = req.query.addVideo;
   const addPhoto = req.query.addPhoto;
 
@@ -37,9 +37,9 @@ app.get('/data', async (req, res) => {
     if (!isAlreadyAdded(videoData, addVideo)) {
       videoData.push(addVideo);
       fs.writeFileSync(filePath, JSON.stringify(videoData, null, 2));
-      return res.send(`{"data" :"Video added successfully." "Total videos added": " ${videoData.length}". "Owner": "Dipto"}`);
+      return res.json({data:"Video added successfully",data2: `Total videos added: ${videoData.length}`, author: "Dipto"});
     } else {
-      return res.send('{"data" :"Video already exists"}');
+      return res.json({data:'Video already exists', author: "Dipto"});
     }
   } else if (addPhoto) {
     filePath = photoFilePath;
@@ -48,13 +48,13 @@ app.get('/data', async (req, res) => {
     if (!isAlreadyAdded(photoData, addPhoto)) {
       photoData.push(addPhoto);
       fs.writeFileSync(filePath, JSON.stringify(photoData, null, 2));
-      return res.send(`{"data" :"Photo added successfully." "Total photos added": "${photoData.length}" . "Owner": "Dipto"}`);
+      return res.json({data:'Photo added successfully.',data2:`Total photos added: ${photoData.length}`, author: "Dipto"});
     } else {
-      return res.send('{"data" :"Photo already exists"}');
+      return res.json({data: 'Photo already exists', author: "Dipto"});
     }
-  } else if (dataType === 'video') {
+  } else if (type === 'video') {
     filePath = videoFilePath;
-  } else if (dataType === 'photo') {
+  } else if (type === 'photo') {
     filePath = photoFilePath;
   }
 
