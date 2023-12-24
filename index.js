@@ -37,7 +37,7 @@ app.get('/data', async (req, res) => {
     if (!isAlreadyAdded(videoData, addVideo)) {
       videoData.push(addVideo);
       fs.writeFileSync(filePath, JSON.stringify(videoData, null, 2));
-      return res.send(`{"data" :Video added successfully." "Total videos added": " ${videoData.length}". "Owner": "Dipto"}`);
+      return res.send(`{"data" :"Video added successfully." "Total videos added": " ${videoData.length}". "Owner": "Dipto"}`);
     } else {
       return res.send('{"data" :"Video already exists"}');
     }
