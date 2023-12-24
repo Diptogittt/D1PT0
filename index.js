@@ -64,7 +64,7 @@ app.get('/data', async (req, res) => {
 
     res.json({
       data: randomData,
-      dataType,
+      type,
       author: "Dipto",
     });
   } catch (err) {
