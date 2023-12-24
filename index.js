@@ -37,9 +37,9 @@ app.get('/data', async (req, res) => {
     if (!isAlreadyAdded(videoData, addVideo)) {
       videoData.push(addVideo);
       fs.writeFileSync(filePath, JSON.stringify(videoData, null, 2));
-      return res.send(`Video added successfully. Total videos added: ${videoData.length} . Owner: "Dipto"`);
+      return res.send(`{"data" :Video added successfully." "Total videos added": ${videoData.length} . "Owner": "Dipto"}`);
     } else {
-      return res.send('Video already exists');
+      return res.send('{"data" :"Video already exists"}');
     }
   } else if (addPhoto) {
     filePath = photoFilePath;
@@ -48,9 +48,9 @@ app.get('/data', async (req, res) => {
     if (!isAlreadyAdded(photoData, addPhoto)) {
       photoData.push(addPhoto);
       fs.writeFileSync(filePath, JSON.stringify(photoData, null, 2));
-      return res.send(`Photo added successfully. Total photos added: ${photoData.length} . Owner: "Dipto"`);
+      return res.send(`{"data" :"Photo added successfully." "Total photos added": ${photoData.length} . "Owner": "Dipto"}`);
     } else {
-      return res.send('Photo already exists');
+      return res.send('{"data" :"Photo already exists"}');
     }
   } else if (dataType === 'video') {
     filePath = videoFilePath;
