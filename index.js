@@ -1,7 +1,9 @@
 const express = require('express');
 const fs = require('fs-extra');
+const path = require('path');
 const PORT = 3000;
 const app = express();
+app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'dipto.html')));
 const videoFilePath = 'video.json';
 const photoFilePath = 'photo.json';
 function getRandomItem(array) {
@@ -27,6 +29,7 @@ app.get('/data', async (req, res) => {
     console.log(addVideo);
     filePath = videoFilePath;
     const videoData = await getDataFromFile(filePath);
+
     if (!isAlreadyAdded(videoData, addVideo)) {
       videoData.push(addVideo);
       fs.writeFileSync(filePath, JSON.stringify(videoData, null, 2));
