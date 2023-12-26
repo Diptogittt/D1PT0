@@ -11,6 +11,7 @@ const sadFilePath = 'sad.json';
 const funnyFilePath = 'funny.json';
 const islamicFilePath = 'islamic.json';
 const hornyFilePath = 'horny.json';
+const animeFilePath = 'anime.json';
 function getRandomItem(array) {
   if (array && array.length > 0) {
     return array[Math.floor(Math.random() * array.length)];
@@ -38,6 +39,7 @@ app.get('/data', async (req, res) => {
   const addFunny = req.query.addFunny;
   const addIslamic = req.query.addIslamic;
   const addHorny = req.query.addHorny;
+  const addAnime = req.query.addAnime;
 let filePath = '';
   if (addVideo) {
     console.log(addVideo);
@@ -124,6 +126,18 @@ let filePath = '';
       return res.json({data: 'This Horny video is already exists',data2:"null",author: "Dipto",});
     }
   }
+    else if (addAnime) {
+    console.log(addAnime);
+    filePath = animeFilePath;
+    const animeData = await getDataFromFile(filePath);
+    if (!isAlreadyAdded(animeData, addAnime)) {
+      animeData.push(addAnime);
+      fs.writeFileSync(filePath, JSON.stringify(animeData, null, 2));
+      return res.json({data:'Anime Video added successfully.',data2:`Total Anime video added: ${AnimeData.length}`, author: "Dipto",});
+    } else {
+      return res.json({data: 'This Anime video is already exists',data2:"null",author: "Dipto",});
+    }
+  }
   else if (type === 'video') {
     console.log(type);
     filePath = videoFilePath;
@@ -146,6 +160,9 @@ let filePath = '';
   else if (type === 'horny') {
     console.log(type);
     filePath = hornyFilePath;
+  }else if (type === 'anime') {
+    console.log(type);
+    filePath = animeFilePath;
   }
   try {
     const data = getDataFromFile(filePath);
